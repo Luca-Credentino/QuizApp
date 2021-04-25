@@ -31,7 +31,12 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         question3.setOnClickListener(this)
         question4.setOnClickListener(this)
         btn_submit.setOnClickListener(this)
-
+        //backBtn
+        backImage.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
     private fun setQuestion(){
 

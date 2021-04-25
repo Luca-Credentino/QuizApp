@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
                 val intent= Intent(this, Quiz::class.java)
                 startActivity(intent)
                 finish()
+
             }
         }
     }
