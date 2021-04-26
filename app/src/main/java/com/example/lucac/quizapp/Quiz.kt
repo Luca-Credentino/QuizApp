@@ -14,15 +14,15 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_quiz.*
 
 class Quiz : AppCompatActivity(), View.OnClickListener {
-
     private var CurrentPosition: Int = 1
     private var questionList: ArrayList<Questions>?= null
     private var mSelectedPosition: Int=0
     private var Correct: Int = 0
-
+    private var USER_NAME: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
+        USER_NAME = intent.getStringExtra(Constans.EXTRA_PLAYER)
          questionList= Constans.getQuestion()
         //we have an array list and now set di id to -1 becouse we had an arraylist
         setQuestion()
@@ -48,9 +48,8 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         }else{
             btn_submit.text= "INVIA"
         }
-
         ProgressBar.progress= CurrentPosition
-        tv_progress.text = "$CurrentPosition"+"/" + ProgressBar.max
+        tv_progress.text = "$CurrentPosition"+"/" + questionList!!.size
         //domanda
         questionid.text= quesion!!.question
         //imagine
@@ -63,7 +62,6 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         question3.text=quesion.question3
         //4
         question4.text=quesion.question4
-
     }
     private fun DefaultOptionView(){
         val options= ArrayList<TextView>()
@@ -75,7 +73,6 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
             options.setTextColor(Color.parseColor("#7A8089"))
             options.typeface = Typeface.DEFAULT
             options.background= ContextCompat.getDrawable(this, R.drawable.defaoult_option_border)
-
         }
     }
 /*
@@ -106,27 +103,30 @@ che quado le textView vengono cliccate si avvia la funzione "reset"
                     }
                     else -> {
                         Toast.makeText(this, "Quiz completato!", Toast.LENGTH_SHORT).show()
-
                     }
                 }
                 }else{
                     val question = questionList?.get(CurrentPosition - 1)
                     if (question!!.correctanswer != mSelectedPosition) {
                         aswerView(mSelectedPosition, R.drawable.wrong_option_border)
+                        Toast.makeText(this, "Risposta sbagliata", Toast.LENGTH_SHORT).show()
                     }else{
                         Correct++
+                        Toast.makeText(this, "Risposta esatta!", Toast.LENGTH_SHORT).show()
                     }
                     aswerView(question.correctanswer, R.drawable.correct_option_border)
                     if (CurrentPosition == questionList!!.size) {
                         btn_submit.text = "COMPLETATO"
                         btn_submit.setOnClickListener {
                         val intent= Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constans.EXTRA_PLAYER, USER_NAME)
+                            intent.putExtra(Constans.EXTRA_CORRECT, Correct)
+                            intent.putExtra(Constans.EXTRA_QUESTION, questionList!!.size)
                         startActivity(intent)
                         finish()}
 
                     } else {
                         btn_submit.text = "PROSSIMA DOMANDA"
-
                     }
                     mSelectedPosition = 0
                 }

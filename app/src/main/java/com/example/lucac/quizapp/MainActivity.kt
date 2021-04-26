@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Scrivi il tuo Username", Toast.LENGTH_SHORT).show()
             }else{
                 val intent= Intent(this, Quiz::class.java)
+                intent.putExtra(Constans.EXTRA_PLAYER, UserName.text.toString())
                 startActivity(intent)
                 finish()
 

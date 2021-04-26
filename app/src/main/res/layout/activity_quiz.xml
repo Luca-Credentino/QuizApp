@@ -60,7 +60,7 @@
                 android:progress="0"
                 android:indeterminate="false"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:max="4"/>
+                android:max="10"/>
 
             <TextView
                 android:id="@+id/tv_progress"

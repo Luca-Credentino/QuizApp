@@ -68,8 +68,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:text="il tuo punteggio è stato: "
-            android:textColor="#7A8089"
-            android:textSize="16sp" />
+            android:textColor="#727780"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/completebtn"
